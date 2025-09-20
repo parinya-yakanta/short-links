@@ -23,4 +23,4 @@ link : xxxx
 -----------------------
 # Diagram
 
-![alt text](https://github.com/parinya-yakanta/laravel-shortlink/blob/main/short-link-diagram.jpeg?raw=true)
+![alt text](https://github.com/parinya-yakanta/short-links/blob/main/short-links.drawio.png?raw=true)
