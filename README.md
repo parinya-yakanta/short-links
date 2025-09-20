@@ -16,9 +16,9 @@
 - email = user@example.com
 - pwd = password
 
-# preview and demo on heroku
+# preview and demo on laravel cloud
 
-link : xxxx
+link : https://short-links-main-atlsfw.laravel.cloud
 
 -----------------------
 # Diagram

@@ -14,6 +14,9 @@ const breadcrumbs: BreadcrumbItem[] = [
 export default function Dashboard() {
     const {
         auth: { user },
+        totalLinks,
+        totalUsers,
+        totalClicks,
     } = usePage<SharedData>().props;
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -32,7 +35,7 @@ export default function Dashboard() {
                             <h3 className="font-semibold">All Links</h3>
 
                             <p>
-                                <span className="text-3xl font-bold">0</span> links
+                                <span className="text-3xl font-bold">{String(totalLinks)}</span> links
                             </p>
                         </div>
                     </div>
@@ -42,7 +45,7 @@ export default function Dashboard() {
                                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-white/70 text-center dark:bg-black/70">
                                     <h3 className="font-semibold">Total Users</h3>
                                     <p>
-                                        <span className="text-3xl font-bold">0</span> users
+                                        <span className="text-3xl font-bold">{String(totalUsers)}</span> users
                                     </p>
                                 </div>
                             </div>
@@ -53,7 +56,7 @@ export default function Dashboard() {
                             <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-white/70 text-center dark:bg-black/70">
                                 <h3 className="font-semibold">Total Clicks</h3>
                                 <p>
-                                    <span className="text-3xl font-bold">0</span> clicks
+                                    <span className="text-3xl font-bold">{String(totalClicks)}</span> clicks
                                 </p>
                             </div>
                         </div>

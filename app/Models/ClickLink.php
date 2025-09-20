@@ -19,4 +19,9 @@ class ClickLink extends Model
     {
         return $this->belongsTo(ShortLink::class);
     }
+
+    public function shortLink()
+    {
+        return $this->belongsTo(ShortLink::class);
+    }
 }

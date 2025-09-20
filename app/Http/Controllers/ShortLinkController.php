@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ClickLink;
 use App\Models\ShortLink;
+use App\Models\User;
 use App\Traits\ClickLinkLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +20,7 @@ class ShortLinkController extends Controller
 
         $links = ShortLink::withCount('clicks');
         $links = $links->with('user:id,name');
-        
+
         if ($user->role !== 'admin') {
             $links = $links->where('user_id', $user->id);
         }
@@ -153,5 +155,40 @@ class ShortLinkController extends Controller
 
         $this->clickLink($link);
         return redirect()->away($link->full);
+    }
+
+    public function dashboard(Request $request)
+    {
+        $user = $request->user();
+
+        $totalLinks = ShortLink::query();
+        if ($user->role !== 'admin') {
+            $totalLinks = $totalLinks->where('user_id', $user->id);
+        }
+        $totalLinks = $totalLinks->withCount('clicks');
+        $totalLinks = $totalLinks->count();
+
+
+        $totalClicks = ClickLink::query();
+        if ($user->role !== 'admin') {
+            $totalClicks = $totalClicks->whereHas('shortLink', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            });
+        } else {
+            $totalClicks = $totalClicks->whereHas('shortLink');
+        }
+        $totalClicks = $totalClicks->count();
+
+        $totalUsers = User::where('role', 'user')->count();
+
+        if ($user->role !== 'admin') {
+            $totalLinks = ShortLink::where('user_id', $user->id)->count();
+        }
+
+        return Inertia::render('dashboard', [
+            'totalLinks' => $totalLinks,
+            'totalUsers' => $totalUsers,
+            'totalClicks' => $totalClicks,
+        ]);
     }
 }
